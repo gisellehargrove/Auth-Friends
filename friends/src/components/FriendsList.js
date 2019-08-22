@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { Link } from 'react-router-dom';
 
 const FriendsList = () => {
   const [friendsList, setFriendsList] = useState([]);
@@ -23,16 +24,18 @@ const FriendsList = () => {
     <div>
       {friendsList.map(friend =>
         <div className='friend-container' key={friend.id}>
-          <div className='name'>
-            {friend.name}
-          </div>
-          <div className='age'>
-            {friend.age}
-          </div>
+          <Link to={`/friend/${friend.id}`}>
+            <div className='name'>
+              {friend.name}
+            </div>
+            <div className='age'>
+              {friend.age}
+            </div>
 
-          <div className='email'>
-            {friend.email}
-          </div>
+            <div className='email'>
+              {friend.email}
+            </div>
+          </Link>
         </div>
       )}
     </div>
