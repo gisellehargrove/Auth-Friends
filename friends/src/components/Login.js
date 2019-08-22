@@ -6,20 +6,16 @@ const Login = props => {
 
   const [credentials, setCredentials] = useState(
     {
-      credentials: {
-        username: '',
-        password: ''
-      }
+      username: 'Lambda School',
+      password: 'i<3Lambd4'
     })
 
   const handleChange = e => {
-    setCredentials(
-      { credentials:
-        {
-          ...credentials.credentials,
-          [e.target.name]: e.target.value
-        }
-      })
+    // setCredentials(
+    //     {
+    //       ...credentials,
+    //       [e.target.name]: e.target.value
+    //     })
   };
 
   const login = e => {
@@ -27,6 +23,7 @@ const Login = props => {
     axios.post('http://localhost:5000/api/login', credentials)
       .then(response => {
         console.log(response)
+        localStorage.setItem('userToken', response.data.payload);
       })
       .catch(err => {
         console.log(err)
@@ -35,9 +32,9 @@ const Login = props => {
 
 
   return (
-    <form>
-      <input onChange={ e => handleChange(e) } placeholder='username' />
-      <input onChange={ e => handleChange(e) } placeholder='password' />
+    <form onSubmit={ e => login(e) }>
+      <input name='username' onChange={ e => handleChange(e) } placeholder='username' />
+      <input name='password' onChange={ e => handleChange(e) } placeholder='password' />
       <button type='submit'> Login </button>
     </form>
   )
