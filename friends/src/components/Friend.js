@@ -7,13 +7,12 @@ const Friend = ({ match }) => {
   useEffect(() => {
     axiosWithAuth().get(`http://localhost:5000/api/friends/${match.params.id}`)
       .then(response => {
-        console.log(response);
         setFriend(response.data);
       })
       .catch(err => {
         console.log(err);
       });
-  }, [])
+  }, [match.params.id])
 
   return (
     <div className='friend'>

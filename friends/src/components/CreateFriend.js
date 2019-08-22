@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-const CreateFriend = () => {
+const CreateFriend = props => {
   const [creds, setCreds] = useState({
     name: '',
     age: '',
@@ -9,9 +9,11 @@ const CreateFriend = () => {
   })
 
   const handleSubmit = e => {
+    e.preventDefault();
     axiosWithAuth().post('http://localhost:5000/api/friends', creds)
       .then(response => {
         console.log(response)
+        props.history.push('/');
       })
       .catch(err => {
         console.log(err)
