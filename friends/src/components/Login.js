@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 
 const Login = props => {
@@ -20,10 +21,10 @@ const Login = props => {
 
   const login = e => {
     e.preventDefault();
-    axios.post('http://localhost:5000/api/login', credentials)
+    axiosWithAuth().post('http://localhost:5000/api/login', credentials)
       .then(response => {
-        console.log(response)
         localStorage.setItem('userToken', response.data.payload);
+        props.history.push('/');
       })
       .catch(err => {
         console.log(err)
